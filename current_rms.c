@@ -5,7 +5,7 @@
 #define PHI 3.14159
 #define EXACT_INTEGRAL 15.41261
 
-// Current function: 10*e^(-t/T)*sin((2*phi*t)/T) for 0 ≤ t ≤ T/2, 0 otherwise
+// Current signal function
 double current(double t) {
     if (t < T/2.0) {
         return 10.0 * exp(-t/T) * sin((2*PHI*t)/T);
@@ -50,9 +50,9 @@ double simpsons_rule(int n, double a, double b) {
 
 int main() {
     double a = 0.0;
-    double b = T/2.0;
+    double b = T/2.0;  // only integrate from 0 to T/2 since i(t) is zero after T/2
     
-    printf("Calculating integral of i²(t) over one period (T = %.2f seconds)\n", T);
+    printf("Calculating integral of i^2(t) over one period (T = %.2f seconds)\n", T);
     printf("Exact integral value: %.5f\n\n", EXACT_INTEGRAL);
     
     // Trapezoidal rule calculations
