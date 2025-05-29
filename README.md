@@ -12,8 +12,13 @@
 
 Program ini menghitung Root Mean Square (RMS) dari sinyal arus :<br><br>
 
-i(t) = 10e^(−t/T) * sin⁡(2πt/T) untuk 0 <= t <= T/2 <br>
-i(t) = 0 untuk T/2 < t <= T <br><br>
+$$
+i(t) = 
+\begin{cases}
+    10e^{-t/T} \cdot \sin\left(\dfrac{2\pi t}{T}\right), & 0 \leq t \leq \dfrac{T}{2}, \\
+    0, & \dfrac{T}{2} < t \leq T.
+\end{cases}
+$$
 
 menggunakan metode integrasi numerik newton-cotes dengan mengimplementasikan rules berikut: <br><br>
 
