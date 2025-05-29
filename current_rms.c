@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <math.h>
 
-#define T 1.0       // Period of 1 second
-#define PHI 3.14159
-#define EXACT_INTEGRAL 15.41261
+#define T 1.0                       // Period of 1 second
+#define PHI 3.14159                 // declaration of phi value
+#define EXACT_INTEGRAL 15.41261     // integral result of i^2(t) over one period (for verification)
 
 // Current signal function
 double current(double t) {
@@ -13,6 +13,7 @@ double current(double t) {
     return 0.0;
 }
 
+// trapezoidal rule for newton-cotes integration
 double trapezoidal_rule(int n, double a, double b) {
     double h = (b - a)/n;
     double sum = 0.0;
@@ -32,25 +33,27 @@ double trapezoidal_rule(int n, double a, double b) {
     return sum * h;
 }
 
+// Simpson's 1/3 rule for newton-cotes integration
 double simpsons_rule(int n, double a, double b) {
-    if (n % 2 != 0) n++;
-    double h = (b - a)/n;
+    double h = (b - a)/n;           // calculate gap between points
     double sum = current(a)*current(a) + current(b)*current(b);
     
     for (int i = 1; i < n; i++) {
-        double t = a + i*h;
+        double t = a + i*h;         // calculate the t value to evaluate the current function
+
+        // simpson's coefficients
         if (i % 2 == 0) {
-            sum += 2.0 * current(t) * current(t);
+            sum += 2.0 * current(t) * current(t);   // if i is even, multiply by 2
         } else {
-            sum += 4.0 * current(t) * current(t);
+            sum += 4.0 * current(t) * current(t);   // if i is odd, multiply by 4
         }
     }
     return sum * h / 3.0;
 }
 
 int main() {
-    double a = 0.0;
-    double b = T/2.0;  // only integrate from 0 to T/2 since i(t) is zero after T/2
+    double a = 0.0;     // start of integration
+    double b = T/2.0;  // upper limit of integration. only integrate from 0 to T/2 since i(t) is zero after T/2
     
     printf("Calculating integral of i^2(t) over one period (T = %.2f seconds)\n", T);
     printf("Exact integral value: %.5f\n\n", EXACT_INTEGRAL);
